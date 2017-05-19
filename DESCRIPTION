@@ -1,0 +1,16 @@
+Package: rdrcass
+Type: Package
+Title: R bindings for Apache Cassandra using Datastax c/c++ driver
+Version: 0.0.1
+Date: 2017-01-01
+Author: Dmitry Ratushnyy
+Maintainer: Dmitry Ratushnyy <d.ratushnyy@gmail.com>
+Copyright: 2017, Dmitry Ratushnyy <d.ratushnyy@gmail.com>
+Description: Interact with Apache Cassandra database using 
+  Datastax c/c++ driver.
+SystemRequirements: Datastax c/c++ driver for Apache Cassandra
+  https://github.com/datastax/cpp-driver
+Depends: R (>= 3.0.0), Rcpp, BH
+LinkingTo: Rcpp, BH
+Imports: methods
+License: MIT + file LICENSE

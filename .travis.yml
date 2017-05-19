@@ -1,0 +1,43 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+language: R
+dist: trusty
+sudo: required
+
+before_install:
+  - echo "deb http://www.apache.org/dist/cassandra/debian 310x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+  - curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
+  - sudo apt-get update -yq
+  - sudo apt-get autoremove automake
+  - sudo apt-get install automake
+  - sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-key A278B781FE4B2BDA
+  - sudo apt-get install -y libssl-dev libssh2-1-dev cassandra cassandra-tools clang make cmake libuv-dev libcurl4-openssl-dev
+  - wget http://ftp.us.debian.org/debian/pool/main/o/openssl1.0/libssl1.0.2_1.0.2k-1_amd64.deb
+  - sudo dpkg -i libssl1.0.2_1.0.2k-1_amd64.deb
+  - wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.11.0/libuv_1.11.0-1_amd64.deb
+  - wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.11.0/libuv-dev_1.11.0-1_amd64.deb
+  - wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.11.0/libuv-dbg_1.11.0-1_amd64.deb
+  - sudo dpkg -i libuv_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dev_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dbg_1.11.0-1_amd64.deb
+  - sudo rm -f /home/travis/R-bin/lib/libcurl.so.4 
+  - sudo ln -fs /usr/lib/x86_64-linux-gnu/libcurl.so.4 /usr/local/lib/
+  - git clone https://github.com/datastax/cpp-driver.git
+  - mkdir cpp-driver/build
+  - cd cpp-driver/build
+  - cmake ..
+  - make && sudo make install 
+  - sudo mkdir -p /usr/lib64
+  - sudo cp ./libcassandra_static.a /usr/lib64/libcassandra_static.a && cd ../..
+  - sudo ln -s /usr/lib/x86_64-linux-gnu/libuv.so /usr/lib64/
+  - ./configure
+  - cat ./src/Makevars
+  - sudo find / -name "libuv.so"
+  #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver_2.7.0-1_amd64.deb
+  #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dev_2.7.0-1_amd64.deb
+  #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dbg_2.7.0-1_amd64.deb
+  #- sudo dpkg -i cassandra-cpp-driver_2.7.0-1_amd64.deb && sudo dpkg -i cassandra-cpp-driver-dev_2.7.0-1_amd64.deb && sudo dpkg -i cassandra-cpp-driver-dbg_2.7.0-1_amd64.deb
+
+services: cassandra
+
+install:
+  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat"));devtools::install_deps(".")'
+script:
+  - Rscript -e 'devtools::check(".")'

@@ -1,0 +1,11 @@
+2017-05-16 Dmitry Ratushnyy
+  * Changed package name
+2017-01-03 Dmitry Ratushnyy
+  * Simple "select" query supported ('SELECT * from keyspace.table')
+  * Installation package on CentOS
+  * Changelog added
+  * README.md update
+  * Simple demo (demo/simple.R) updated
+
+2017-01-01 Dmitry Ratushnyy
+  * Initial commit: Connection to Cassandra, obtain Cassandra release version.
