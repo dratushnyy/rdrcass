@@ -26,7 +26,7 @@ rdrcass is a R client for Apache Cassandra  based on Rcpp and Datastax c/c++ dri
   
 ## Notes
 * Libuv(required by Datastax c/c++ driver) and Datastax c/c++ driver
-should be installed before pakage installation
+should be installed before the package installation
 * Types not supported on 'select' will return NA
 
 ## License
