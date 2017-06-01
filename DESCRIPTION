@@ -10,7 +10,7 @@ Description: Interact with Apache Cassandra database using
   Datastax c/c++ driver.
 SystemRequirements: Datastax c/c++ driver for Apache Cassandra
   https://github.com/datastax/cpp-driver
-Depends: R (>= 3.0.0), Rcpp, BH
+Depends: R (>= 3.0.0), methods
+Imports: Rcpp, methods
 LinkingTo: Rcpp, BH
-Imports: methods
 License: MIT + file LICENSE
