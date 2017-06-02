@@ -5,17 +5,17 @@ PLATFORM=$(uname -m)
 if [ ! -e "./src/Makevars" ]; then
   touch $MAKEVARS
 if [[ $SYSTEM == "Darwin" ]]; then
-  echo "PKG_LIBS=$(PKG_LIBS) /usr/local/lib/libcassandra_static.a" >> $MAKEVARS
-  echo "PKG_LIBS=$(PKG_LIBS) /usr/local/lib/libuv.a" >> $MAKEVARS
+  echo "PKG_LIBS+=/usr/local/lib/libcassandra_static.a" >> $MAKEVARS
+  echo "PKG_LIBS+=/usr/local/lib/libuv.a" >> $MAKEVARS
 
 #TODO: correct usage of pkg-config
 elif [[ $SYSTEM == "Linux" ]]; then
   if [[ $PLATFORM == "x86_64" ]]; then
-    echo "PKG_LIBS=$(PKG_LIBS) /usr/lib64/libcassandra_static.a" >> $MAKEVARS
-    echo "PKG_LIBS=$(PKG_LIBS) /usr/lib64/libuv.so" >> $MAKEVARS  
+    echo "PKG_LIBS+=/usr/lib64/libcassandra_static.a" >> $MAKEVARS
+    echo "PKG_LIBS+=/usr/lib64/libuv.so" >> $MAKEVARS  
   else
-    echo "PKG_LIBS=$(PKG_LIBS) /usr/local/lib/libcassandra_static.a" >> $MAKEVARS
-    echo "PKG_LIBS=$(PKG_LIBS) /usr/local/lib/libuv.so" >> $MAKEVARS  
+    echo "PKG_LIBS+=/usr/local/lib/libcassandra_static.a" >> $MAKEVARS
+    echo "PKG_LIBS+=/usr/local/lib/libuv.so" >> $MAKEVARS  
   fi
   #cassandra_h_location=$(sudo find / -name "cassandra.h")
   #echo "PKG_CPPFLAGS+=$caasandra_h_location" >> $MAKEVARS
@@ -26,4 +26,3 @@ fi
 echo "CXX_STD = CXX11" >> $MAKEVARS
 
 fi # $SYSTEM
-
