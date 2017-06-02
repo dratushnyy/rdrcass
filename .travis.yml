@@ -17,6 +17,7 @@ before_install:
   - wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.11.0/libuv-dev_1.11.0-1_amd64.deb
   - wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/dependencies/libuv/v1.11.0/libuv-dbg_1.11.0-1_amd64.deb
   - sudo dpkg -i libuv_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dev_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dbg_1.11.0-1_amd64.deb
+  - sudo mkdir -p /usr/lib64
   - sudo rm -f /home/travis/R-bin/lib/libcurl.so.4 
   - sudo ln -fs /usr/lib/x86_64-linux-gnu/libcurl.so.4 /usr/local/lib/
   - sudo ln -s /usr/lib/x86_64-linux-gnu/libuv.so /usr/lib64/
@@ -25,7 +26,6 @@ before_install:
   - cd cpp-driver/build
   - cmake ..
   - make && sudo make install 
-  - sudo mkdir -p /usr/lib64
   - sudo cp ./libcassandra_static.a /usr/lib64/libcassandra_static.a && cd ../..
   - ./configure
   - cat ./src/Makevars
