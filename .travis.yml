@@ -27,8 +27,8 @@ before_install:
   - cmake ..
   - make && sudo make install 
   - sudo cp ./libcassandra_static.a /usr/lib64/libcassandra_static.a && cd ../..
-  - ./configure
-  - cat ./src/Makevars
+  #- ./configure
+  #- cat ./src/Makevars
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver_2.7.0-1_amd64.deb
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dev_2.7.0-1_amd64.deb
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dbg_2.7.0-1_amd64.deb
@@ -37,6 +37,6 @@ before_install:
 services: cassandra
 
 install:
-  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat"));devtools::install_deps(".")'
+  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat")); devtools::install_deps(".")'
 script:
   - Rscript -e 'devtools::check(".")'
