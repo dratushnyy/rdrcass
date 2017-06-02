@@ -17,9 +17,6 @@ elif [[ $SYSTEM == "Linux" ]]; then
     echo "PKG_LIBS+=/usr/local/lib/libcassandra_static.a" >> $MAKEVARS
     echo "PKG_LIBS+=/usr/local/lib/libuv.so" >> $MAKEVARS  
   fi
-  #cassandra_h_location=$(sudo find / -name "cassandra.h")
-  #echo "PKG_CPPFLAGS+=$caasandra_h_location" >> $MAKEVARS
-  #echo "PKG_CFLAGS+=$caasandra_h_location" >> $MAKEVARS # TODO do we need this?
 fi
 
 
