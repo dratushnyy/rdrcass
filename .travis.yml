@@ -19,6 +19,7 @@ before_install:
   - sudo dpkg -i libuv_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dev_1.11.0-1_amd64.deb && sudo dpkg -i libuv-dbg_1.11.0-1_amd64.deb
   - sudo rm -f /home/travis/R-bin/lib/libcurl.so.4 
   - sudo ln -fs /usr/lib/x86_64-linux-gnu/libcurl.so.4 /usr/local/lib/
+  - sudo ln -s /usr/lib/x86_64-linux-gnu/libuv.so /usr/lib64/
   - git clone https://github.com/datastax/cpp-driver.git
   - mkdir cpp-driver/build
   - cd cpp-driver/build
@@ -26,10 +27,8 @@ before_install:
   - make && sudo make install 
   - sudo mkdir -p /usr/lib64
   - sudo cp ./libcassandra_static.a /usr/lib64/libcassandra_static.a && cd ../..
-  - sudo ln -s /usr/lib/x86_64-linux-gnu/libuv.so /usr/lib64/
   - ./configure
   - cat ./src/Makevars
-  - sudo find / -name "libuv.so"
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver_2.7.0-1_amd64.deb
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dev_2.7.0-1_amd64.deb
   #- wget http://downloads.datastax.com/cpp-driver/ubuntu/14.04/cassandra/v2.7.0/cassandra-cpp-driver-dbg_2.7.0-1_amd64.deb
